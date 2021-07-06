@@ -1,0 +1,74 @@
+openapi: 3.0.1
+info:
+  title: Docker-mailserver Administration API
+  version: 0.0.1
+servers:
+  - url: 'https://contoso.com/'
+paths:
+  /api/admin/v1/users/{emailAddress}/changePassword:
+    post:
+      summary: Changes a given user's password
+      tags:
+        - V1 User operations
+        - V1 Admin API
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: path
+          name: emailAddress
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The new password for the target user
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        '204':
+          description: The password was successfully modified
+        '404':
+          $ref: '#/components/responses/UserNotFoundError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/MissingAPIKey'
+components:
+  schemas:
+    ErrorBase:
+      type: object
+      required:
+        - errorCode
+        - message
+      properties:
+        errorCode:
+          type: string
+          description: Code name of the error
+        message:
+          type: string
+          description: Additional details about the error
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+  responses:
+    UserNotFoundError:
+      description: User does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBase'
+    MissingAPIKey:
+      description: API key is missing
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBase'
+    UnauthorizedError:
+      description: API key is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBase'

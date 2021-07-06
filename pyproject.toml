@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "docker-mailserver-admin-api"
+version = "0.1.0"
+description = "General purpose API for docker-mailserver administration"
+authors = ["Luke Marlin <code@lukemarlin.fr>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fastapi = "^0.63.0"
+uvicorn = "^0.13.4"
+
+[tool.poetry.dev-dependencies]
+tox = "^3.23.0"
+pytest = "^6.2.3"
+rope = "^0.19.0"
+requests = "^2.25.1"
+black = "^21.6b0"
+pytest-mock = "^3.6.1"
+mypy = "^0.910"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
