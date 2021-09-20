@@ -5,9 +5,10 @@ description = "General purpose API for docker-mailserver administration"
 authors = ["Luke Marlin <code@lukemarlin.fr>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.7"
 fastapi = "^0.63.0"
-uvicorn = "^0.13.4"
+gunicorn = "^20.1.0"
+uvicorn = {version = "^0.14.0", extras = ["standard"]}
 
 [tool.poetry.dev-dependencies]
 tox = "^3.23.0"
