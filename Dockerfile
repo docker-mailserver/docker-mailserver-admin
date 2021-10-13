@@ -18,12 +18,12 @@ RUN python3 -m pip install poetry
 #RUN rm /tmp/build-admin-api
 
 # Install python application
-RUN mkdir /opt/admin-api
-COPY docker_mailserver_admin_api /opt/admin-api
-COPY poetry.lock /opt/admin-api
-COPY pyproject.toml /opt/admin-api
+RUN mkdir /opt/docker_mailserver_admin_api
+COPY docker_mailserver_admin_api /opt/docker_mailserver_admin_api
+COPY poetry.lock /opt/docker_mailserver_admin_api
+COPY pyproject.toml /opt/docker_mailserver_admin_api
 COPY admin-api-supervisor.conf /etc/supervisor/conf.d/
-RUN cd /opt/admin-api && poetry install --no-dev
+RUN cd /opt/docker_mailserver_admin_api && poetry install --no-dev
 
 # Caddy installation
 RUN apt-get install -y debian-keyring debian-archive-keyring apt-transport-https
