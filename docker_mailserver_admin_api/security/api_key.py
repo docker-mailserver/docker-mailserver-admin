@@ -7,5 +7,8 @@ _api_key_header = APIKeyHeader(name="X-API-KEY")
 
 
 async def check_api_key(key: str = Depends(_api_key_header)):
-    if key != os.getenv("DOCKER_MAILSERVER_ADMIN_API_KEY"):
-        raise HTTPException(status_code=401, detail="Invalid API token")
+    api_key = os.getenv("DOCKER_MAILSERVER_ADMIN_API_KEY")
+    if not api_key:
+        raise HTTPException(status_code=501, detail="API key not configured")
+    if key != api_key:
+        raise HTTPException(status_code=401, detail="Invalid API key")

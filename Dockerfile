@@ -1,4 +1,4 @@
-FROM mailserver/docker-mailserver:latest
+FROM mailserver/docker-mailserver:10.2.0
 
 # Update and install pip
 RUN apt-get -qq update
@@ -18,12 +18,12 @@ RUN python3 -m pip install poetry
 #RUN rm /tmp/build-admin-api
 
 # Install python application
-RUN mkdir /opt/docker_mailserver_admin_api
-COPY docker_mailserver_admin_api /opt/docker_mailserver_admin_api
-COPY poetry.lock /opt/docker_mailserver_admin_api
-COPY pyproject.toml /opt/docker_mailserver_admin_api
+RUN mkdir /opt/admin-api
+COPY docker_mailserver_admin_api /opt/admin-api/docker_mailserver_admin_api
+COPY poetry.lock /opt/admin-api
+COPY pyproject.toml /opt/admin-api
 COPY admin-api-supervisor.conf /etc/supervisor/conf.d/
-RUN cd /opt/docker_mailserver_admin_api && poetry install --no-dev
+RUN cd /opt/admin-api && poetry install --no-dev
 
 # Caddy installation
 RUN apt-get install -y debian-keyring debian-archive-keyring apt-transport-https

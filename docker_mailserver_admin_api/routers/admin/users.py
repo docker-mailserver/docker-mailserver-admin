@@ -17,6 +17,6 @@ router = APIRouter(dependencies=[Depends(check_api_key)])
 )
 async def change_password(email_address: str, body: AdminChangePasswordPayload):
     result = subprocess.run(
-        ["./setup.sh", "email", "update", email_address, body.new_password]
+        ["setup", "email", "update", email_address, body.new_password]
     )
     result.check_returncode()  # NOTE: safeguard this
